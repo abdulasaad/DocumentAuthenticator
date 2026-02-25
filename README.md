@@ -1,51 +1,35 @@
 # Document Authenticator
 
 
-A professional digital forensics suite built to analyze document manipulation, detect copy-move forgeries, and verify offline signatures using state-of-the-art computer vision and deep learning techniques. 
+Welcome to the Document Authenticator! This is a simple, powerful tool designed to help you figure out if a document or signature has been digitally faked, altered, or forged.
 
-The system leverages an ensemble of AI and mathematical algorithms including PyTorch Siamese networks, ORB+RANSAC homography, Error Level Analysis (ELA), robust edge detection filters, and Optical Character Recognition (OCR).
-
----
-
-## 🔍 Core Features
-
-### 1. Offline Signature Verification
-Upload a reference (enrolled) signature and a queried signature. The system uses a trained PyTorch Siamese Network backbone to extract embeddings and calculate the cosine distance between the two signatures to determine authenticity.
-* *Note: Requires a pre-trained `weights/siamese_best.pt` file to operate.*
-
-### 2. Copy-Move Forgery Detection
-Detects regions of a document that have been cloned and pasted elsewhere within the same image.
-* Uses **ORB** (Oriented FAST and Rotated BRIEF) for high-speed feature extraction.
-* Uses **RANSAC** (Random Sample Consensus) to strictly mathematically verify the geometric arrangement of cloned keypoints, rejecting false positives.
-
-### 3. Comprehensive Document Analysis
-A multi-tool workstation for analyzing a single document artifact:
-* **Error Level Analysis (ELA):** Highlights regions of the image that degrade at different rates when subjected to heavy JPEG compression, exposing pasted digital elements. Features an autonomous OpenCV contour-mapping engine that dynamically draws bounding boxes around anomalies (>3.5 standard deviations from the document mean).
-* **Edge Detection:** Extracts structural outlines to find hard splicing lines using Canny, Sobel, Laplacian, or Prewitt algorithms.
-* **Optical Character Recognition (OCR):** Extracts raw text using EasyOCR, or switches to TrOCR for complex handwritten documents.
-* **Wavelet Decomposition:** Analyzes the high-frequency domain of the document noise using PyWavelets to find invisible tampering boundaries.
+You don't need to be a computer expert to use it. Just upload an image of your document, and the software will analyze it for you.
 
 ---
 
-## ⚡ Setup & Deployment
+## 🔍 What can this tool do?
 
-This application includes a custom zero-touch Windows management launcher designed for portable/offline use.
+### 1. Check if a Signature is Fake (Signature Verification)
+If you have a known, real signature from someone, you can upload it here alongside a newly signed document. The AI will compare the handwriting style, curves, and strokes to tell you if they match, or if the new one is a forgery.
 
-### Prerequisites (For developers)
-If you are running the source code directly without the portable binary:
-1. Python 3.10+
-2. Install dependencies:
-   ```bash
-   pip install -r app/requirements.txt
-   ```
+### 2. Find Pasted Elements (Copy-Move Forgery)
+Sometimes, a forger will copy a piece of a document (like a date, a stamp, or a signature) and paste it somewhere else on the same page. This tool scans the entire document to find exact duplicate regions and highlights them for you.
 
-### End-User Execution (Windows)
-To run the software, simply double-click the included `Run DocAuth.bat` file. 
+### 3. Spot Hidden Alterations (Document Analysis)
+If someone takes a picture of a document, erases a number in Photoshop, and types in a new number, it might look perfect to the human eye. This tool uses three different x-ray-like methods to expose the truth:
+* **Error Level Analysis (ELA):** When an image is saved in Photoshop, the edited parts save differently than the original parts. This tool creates a heatmap that makes edited areas (like a pasted stamp or changed text) glow bright red so you can easily spot them.
+* **Edge Detection:** This strips away all the colors and shows you only the hard outlines of the document. This makes it easy to spot if a piece of text or a logo was "spliced" or cut out from another piece of paper.
+* **Wavelet Scanner:** This looks at the hidden "background noise" of the image. If someone erased something, the background noise in that specific spot will be totally smooth, giving them away.
 
-The boot sequence will automatically:
-1. Boot the built-in portable Python environment.
-2. Silently ping this GitHub repository utilizing `git pull` to fetch the absolute latest features and bug fixes.
-3. Launch the Streamlit backend server.
-4. Open your default web browser to the application dashboard.
+---
 
-*Note: If the PC is offline or Git is not installed, the auto-updater will safely bypass and launch the local software version immediately.*
+## ⚡ How to Run the Software
+
+This software is designed to be incredibly easy to start. You don't need to install any complex coding environments.
+
+**Just do this:**
+1. Open the folder.
+2. Double-click the file named `Run DocAuth.bat`.
+3. Wait a few seconds. The black window will automatically check the internet for any new updates from the developer, download them, and then instantly open the tool in your web browser. 
+
+*If you don't have internet access, don't worry! It will safely skip the update check and just open the software normally.*
