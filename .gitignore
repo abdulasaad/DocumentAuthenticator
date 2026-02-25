@@ -1,0 +1,37 @@
+# ── Portable Python Environment ───────────────────────────────────────────────
+python/
+*.zip
+
+# ── General Python ────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Environments ──────────────────────────────────────────────────────────────
+.env
+.venv/
+venv/
+env/
+
+# ── Core App Ignored ──────────────────────────────────────────────────────────
+app/weights/
+app/*.pt
+app/*.pth
+app/*.onnx
+app/temp_uploads/
+
+# ── IDE & OS ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
