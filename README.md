@@ -1,5 +1,5 @@
 # Document Authenticator
-**By Abdullah Saad**
+
 
 A professional digital forensics suite built to analyze document manipulation, detect copy-move forgeries, and verify offline signatures using state-of-the-art computer vision and deep learning techniques. 
 
