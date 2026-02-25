@@ -241,7 +241,7 @@ with tab3:
         st.markdown("#### Analysis Setup")
         analysis_options = st.multiselect(
             "Select analyses to run",
-            ["Error Level Analysis (ELA)", "Edge Detection", "OCR", "Wavelet Decomposition"],
+            ["Error Level Analysis (ELA)", "Edge Detection", "Wavelet Decomposition"],
             default=["Error Level Analysis (ELA)", "Edge Detection"],
             label_visibility="collapsed"
         )
@@ -264,9 +264,6 @@ with tab3:
         }
         detector_display = st.selectbox("Detection Algorithm", list(detector_map.keys()), key="edge_det")
         detector = detector_map[detector_display]
-        
-        st.markdown("**OCR Extraction**")
-        handwritten = st.toggle("Handwritten text mode (uses TrOCR)", value=False, key="ocr_hw")
         
         st.write("") # Spacing
         run_doc_btn = st.button("▶ Run Analysis", type="primary", use_container_width=True, disabled=not doc_file)
@@ -375,27 +372,6 @@ with tab3:
                     st.image(doc_pil, caption="Original", use_container_width=True)
                 with c2:
                     st.image(edges[detector], caption=f"{detector.capitalize()} edges", use_container_width=True)
-
-            # ── OCR ───────────────────────────────────────────────────────────
-            if "OCR" in analysis_options:
-                st.subheader("Optical Character Recognition")
-                with st.spinner("Extracting text..."):
-                    from src.analysis.ocr import extract_text
-                    ocr_result = extract_text(doc_path, handwritten=handwritten)
-
-                st.text_area("Extracted text", ocr_result["full_text"], height=200)
-                m1, m2 = st.columns(2)
-                m1.metric("Avg. Confidence", f"{ocr_result['avg_confidence']:.1%}")
-                m2.metric("Engine", ocr_result["engine"])
-
-                if ocr_result["words"]:
-                    with st.expander("Word-level results"):
-                        import pandas as pd
-                        df = pd.DataFrame([
-                            {"Text": w["text"], "Confidence": f"{w['confidence']:.1%}"}
-                            for w in ocr_result["words"]
-                        ])
-                        st.dataframe(df, use_container_width=True)
 
             # ── Wavelet ────────────────────────────────────────────────────────
             if "Wavelet Decomposition" in analysis_options:
