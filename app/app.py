@@ -251,7 +251,7 @@ with tab3:
         ela_quality = st.slider("JPEG Resave Quality", 50, 100, 95, 1)
         ela_scale = st.slider("Error Multiplier", 1, 50, 15, 1)
         apply_heatmap = st.checkbox("Apply Jet Heatmap to ELA", value=True)
-        mark_suspicious = st.checkbox("Highlight Suspicious Regions", value=False, help="Draws a box around areas with unusually high ELA intensity.")
+        mark_suspicious = st.checkbox("Highlight Suspicious Regions", value=True, help="Draws a box around areas with unusually high ELA intensity.")
         
         st.markdown("**Edge Detection**")
         pre_blur = st.slider("Pre-processing Gaussian Blur", 0, 15, 3, 1)
